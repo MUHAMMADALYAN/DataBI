@@ -1,0 +1,135 @@
+{% extends "app/layout.html" %}
+{% block content %}
+{% if errors %}
+<div class="jumbotron">
+    <section id="errors">
+        <h1>Errors occurred in your last request to Bing Ads API.</h1>
+        <table class="message_list">
+            <tr>
+                <th>Code</th>
+                <th>ErrorCode</th>
+                <th>Message</th>
+            </tr>
+            {% for error in errors %}
+            <tr>
+                <td>{{ error.Code }}</td> 
+                <td>{{ error.ErrorCode }}</td> 
+                <td>{{ error.Message }}</td> 
+            </tr>
+            {% endfor %}
+        </table> 
+    </section>
+</div>
+{% endif %}
+{% if user.is_authenticated  %}
+{% if bingadsuser  %}
+<div class="jumbotron">
+    <section id="enabled">
+        <h1>Your credentials have access to Microsoft Advertising.</h1>
+        <table class="message_list">
+            <tr>
+                <th>Id</th>
+                <th>UserName</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+            <tr>
+                <td>{{ bingadsuser.Id }}</td> 
+                <td>{{ bingadsuser.UserName }}</td> 
+                <td>{{ bingadsuser.Name.FirstName }}</td> 
+                <td>{{ bingadsuser.Name.LastName }}</td> 
+            </tr>
+        </table>  
+    </section>
+</div>
+<div class="jumbotron">
+    <section id="revoke">
+        <p class="lead">Click here to revoke access for this app to your Microsoft Advertising accounts. You will then be able to login with a different Microsoft Advertising user. </p>
+        <form id="revokeForm" action="/revoke" method="post" class="navbar-left">
+            {% csrf_token %}
+            <p><a href="javascript:document.getElementById('revokeForm').submit()" class="btn btn-primary btn-large">Delete Refresh Token</a></p>
+        </form>
+    </section>
+</div>
+<div class="jumbotron">
+    <section id="accounts">        
+        <h1>Account Details</h1>
+        <table class="message_list">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th> 
+            </tr>
+            </thead>
+            <tbody>
+            {% for account in accounts %}
+            <tr>
+                <td>{{ account.Id }}</td>
+                <td>{{ account.Name }}</td> 
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table> 
+    </section>
+</div>
+{% else  %}
+<div class="jumbotron">
+    <section id="enable">
+        <h1>Enable Microsoft Advertising Access</h1>
+        <p class="lead">
+            You are logged into the Django web application, but not yet signed in with your Microsoft Advertising credentials. 
+            You can sign in with Microsoft Advertising credentials below.
+        </p>
+    </section>
+</div>
+<div>
+    <div class="col-md-6">
+        <section id="socialLoginForm">
+            <h1>Microsoft Account Login</h1>
+            <p class="lead">
+                Click here to authenticate your Microsoft Account. 
+                If you don't have Microsoft Advertising credentials, you can go to the 
+                <a href="https://ads.microsoft.com/customer/Signup.aspx">Microsoft Advertising Sign Up</a> page.
+            </p>
+            <p><a href="/callback" class="btn btn-primary btn-large">Authenticate Microsoft Account &raquo;</a></p>
+        </section>
+    </div>    
+</div>
+{% endif %}
+{% else %}
+<div class="jumbotron">
+    <div class="col-md-6">
+        <section id="socialLoginForm">
+            <h1>Microsoft Advertising Example Web Application</h1>
+            <p class="lead">
+                Before you can provide your Microsoft Advertising user credentials and access Microsoft Advertising data, 
+                you must <a href="{% url 'login' %}">login</a> to the Django web application.
+            </p>
+            <p class="lead">Use your site's Django admin portal to add web app users.</p>
+            <p><a href="/admin" class="btn btn-primary btn-large">Django Admin &raquo;</a></p>
+        </section>
+    </div>    
+</div>
+{% endif %}
+<div>
+    <div class="col-md-4">
+        <h2>Get Started Using Python with Bing Ads API</h2>
+        <p>The Bing Ads Python Software Development Kit (SDK) simplifies workflows such as OAuth authentication and report file parsing.</p>
+        <p><a class="btn btn-default" href="https://docs.microsoft.com/advertising/guides/get-started-python">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Django</h2>
+        <p>Django is a free web framework for building Web sites and Web applications using HTML, CSS and JavaScript.</p>
+        <p><a class="btn btn-default" href="https://www.djangoproject.com/">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Microsoft Azure</h2>
+        <p>You can publish your web app to Microsoft Azure. Find out how you can host your application with a free trial today.</p>
+        <p><a class="btn btn-default" href="https://azure.microsoft.com">Learn more &raquo;</a></p>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'app/site.css' %}"/>
+{% endblock %}
