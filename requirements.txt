@@ -1,0 +1,13 @@
+asgiref==3.4.1
+bingads==13.0.10
+certifi==2021.5.30
+chardet==4.0.0
+Django==3.2.5
+future==0.18.2
+idna==2.10
+pytz==2021.1
+requests==2.25.1
+six==1.16.0
+sqlparse==0.4.1
+suds-jurko==0.6
+urllib3==1.26.6
