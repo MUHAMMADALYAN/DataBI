@@ -129,8 +129,8 @@ Edit with your credentials.
 """
 
 REDIRECTION_URI = "http://localhost:8000/callback"
-CLIENT_ID = "05e912f0-414e-4899-80ea-7bd4d62c8484"  # Your registered App ID
-CLIENT_SECRET = "vBUD3FI3Z2.5.IQ0fJpFb5o5v-3-jhb.Px"  # Your registered App Password
+CLIENT_ID = "80468b36-3fed-44c3-9d3d-00e7c065e5c0"  # Your registered App ID
+CLIENT_SECRET = "D.yp2d0-9RDP1.tg0RRbzp3F5fyc_Sw8c_"  # Your registered App Password
 DEVELOPER_TOKEN = "149AUCMTK3100558"  # Your production developer token
 ENVIRONMENT = 'production'
 API_VERSION = 13
